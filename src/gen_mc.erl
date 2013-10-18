@@ -376,12 +376,12 @@ handle_cast({cast, Req}, St) ->
 handle_cast({close, Pid}, St) ->
     try
         Sss = session(Pid, St#st.sessions),
-        ok = cl_consumer:pause(Sss#session.consumer),
-        ok = gen_mc_session:stop(Pid)
+        ok = cl_consumer:pause(Sss#session.consumer)
     catch
         _Class:_NotRunning ->
             ok
     end,
+    ok = gen_mc_session:stop(Pid),
     {noreply, St};
 handle_cast({{alert_notification, Params}, Pid}, St) ->
     ok = req_send(Pid, alert_notification, Params),
