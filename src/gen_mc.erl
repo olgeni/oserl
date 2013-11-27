@@ -582,21 +582,24 @@ session(Pid, List) ->
     {value, Session} = lists:keysearch(Pid, #session.pid, List),
     Session.
 
-
 session_closed(Pid, St) ->
-    try
+    catch_all_errors(fun() ->
         Sss = session(Pid, St#st.sessions),
         erlang:demonitor(Sss#session.ref, [flush]),
-        ok = cl_consumer:stop(Sss#session.consumer),
+        ok = cl_consumer:stop(Sss#session.consumer)
+    end),
+    catch_all_errors(fun() ->
         QueueSrv = cl_queue_tab:lookup(Pid),
         ok = cl_queue_srv:stop(QueueSrv)
-    catch
-        _Class:_NotSession ->
-            ok
-    end,
+    end),
     St#st{sessions = session_delete(Pid, St#st.sessions)}.
 
-
+catch_all_errors(Fun) ->
+    try
+        Fun()
+    catch
+        _:_ -> ok
+    end.
 
 session_delete(Pid, List) ->
     lists:keydelete(Pid, #session.pid, List).
