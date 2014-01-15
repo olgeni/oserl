@@ -608,15 +608,20 @@ session_delete(Pid, List) ->
 session_new(Pid, Opts) ->
     Ref = erlang:monitor(process, Pid),
     unlink(Pid),
+    case proplists:get_value(rps, Opts) of
+        false -> nop;
+        _ -> start_cl_queue_srv(Pid, Opts)
+    end,
+    #session{pid = Pid, ref = Ref, rps = proplists:get_value(rps, Opts, ?RPS)}.
+
+start_cl_queue_srv(Pid, Opts) ->
     {ok, QueueSrv} = case proplists:get_value(file_queue, Opts) of
                          undefined ->
                              cl_queue_srv:start_link();
                          File ->
                              cl_queue_srv:start_link(File)
                      end,
-    true = cl_queue_tab:insert(Pid, QueueSrv),
-    #session{pid = Pid, ref = Ref, rps = proplists:get_value(rps, Opts, ?RPS)}.
-
+    true = cl_queue_tab:insert(Pid, QueueSrv).
 
 session_stop(Sss, Reason) ->
     try
