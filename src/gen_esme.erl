@@ -435,16 +435,21 @@ rps_max(SrvRef, Rps) ->
 %%%-----------------------------------------------------------------------------
 init({Mod, Args, Opts}) ->
     {ok, Log} = smpp_log_mgr:start_link(),
+    case proplists:get_value(rps, Opts) of
+        false -> nop;
+        _ -> start_cl_queue_srv(Opts)
+    end,
+    St = #st{mod = Mod, rps = proplists:get_value(rps, Opts, ?RPS), log = Log},
+    pack((St#st.mod):init(Args), St).
+
+start_cl_queue_srv(Opts) ->
     {ok, QueueSrv} = case proplists:get_value(file_queue, Opts) of
                          undefined ->
                              cl_queue_srv:start_link();
                          File ->
                              cl_queue_srv:start_link(File)
                      end,
-    true = cl_queue_tab:insert(QueueSrv),
-    St = #st{mod = Mod, rps = proplists:get_value(rps, Opts, ?RPS), log = Log},
-    pack((St#st.mod):init(Args), St).
-
+    true = cl_queue_tab:insert(QueueSrv).
 
 terminate(Reason, St) ->
     (St#st.mod):terminate(Reason, St#st.mod_st).
