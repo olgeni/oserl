@@ -647,6 +647,24 @@
 -define(USSD_SERVICE_OP_USSR_CONFIRM,   18).
 -define(USSD_SERVICE_OP_USSN_CONFIRM,   19).
 
+%% Vodafone MAM-2G: vs_retinfo values in status reports for submit_mt
+
+-define(MAM2G_VS_RETINFO_BILLED,                    ["0"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_CREDIT_LOW,     ["30"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_DELETE_SIM,     ["32", "33", "34", "35"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_UNABLE_TO_BILL, ["10", "-1", "36"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_OFF_NETWORK,    ["31"]).
+
+%% Vodafone MAM-2G: vs_retinfo values in status reports for recharge_mt
+
+-define(MAM2G_VS_RETINFO_OK,                       ["0"]).
+-define(MAM2G_VS_RETINFO_FAILED_WAIT_AND_RETRY,    ["20", "36", "-1"]).
+-define(MAM2G_VS_RETINFO_FAILED_DELETE_SIM,        ["34"]).
+-define(MAM2G_VS_RETINFO_FAILED_VERIFY_AND_RETRY,  ["40", "10", "70"]).
+-define(MAM2G_VS_RETINFO_FAILED_TIMEOUT,           ["50"]).
+-define(MAM2G_VS_RETINFO_FAILED_ALREADY_RECHARGED, ["60"]).
+-define(MAM2G_VS_RETINFO_FAILED_OFF_NETWORK,       ["31"]).
+
 %%% USEFUL MACROS
 %% Work with command ids and names
 %%
