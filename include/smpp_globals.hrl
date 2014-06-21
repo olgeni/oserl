@@ -187,6 +187,15 @@
 -define(ESME_RINVBCASTCHANIND,    16#00000112). % Broadcast Channel Indicator
                                                 % is invalid
 
+%% Vodafone MAM-2G extended errors (software v1.3, doc. v3.0)
+
+-define(ESME_MAM2G_RINVPYRADR,    16#00000400). %% Invalid Payer Address
+-define(ESME_MAM2G_RINVPYRTON,    16#00000401). %% Invalid Payer TON
+-define(ESME_MAM2G_RINVPYRNPI,    16#00000402). %% Invalid Payer NPI
+-define(ESME_MAM2G_RINVSPCLASS,   16#00000403). %% Invalid SP class
+-define(ESME_MAM2G_RINVSPSERV,    16#00000404). %% Invalid SP service
+-define(ESME_MAM2G_RINVRGSTDLVRD, 16#00000405). %% Invalid registered_deliverered field
+
 % SMPP 3.4 Error Code Synonyms
 %
 % **deprecated** For backward compatibility only.
