@@ -1591,5 +1591,90 @@
                     undefined,
                     undefined)).
 
--endif.  % -ifndef(smpp_param)
+%% Vodafone MAM-2G extended TLVs (software v1.3, doc. v3.0)
 
+%% mam2g_sp_date
+%%
+%% @doc
+%% <p>Wireless Network Technology: MAM2G</p>
+%% @end
+
+-define(MAM2G_SP_DATE,
+        ?SIMPLE_TLV(mam2g_sp_date,
+                    16#1400,
+                    ?MAM2G_SP_DATE_DOMAIN,
+                    ?MAM2G_SP_DATE_RESERVED,
+                    undefined,
+                    undefined)).
+
+%% mam2g_notify_debit
+%%
+%% @doc
+%% <p>Wireless Network Technology: MAM2G</p>
+%% @end
+
+-define(MAM2G_NOTIFY_DEBIT,
+        ?SIMPLE_TLV(mam2g_notify_debit,
+                    16#1401,
+                    ?MAM2G_NOTIFY_DEBIT_DOMAIN,
+                    ?MAM2G_NOTIFY_DEBIT_RESERVED,
+                    undefined,
+                    undefined)).
+
+%% mam2g_notify
+%%
+%% @doc
+%% <p>Wireless Network Technology: MAM2G</p>
+%% @end
+
+-define(MAM2G_NOTIFY,
+        ?SIMPLE_TLV(mam2g_notify,
+                    16#1402,
+                    ?MAM2G_NOTIFY_DOMAIN,
+                    ?MAM2G_NOTIFY_RESERVED,
+                    undefined,
+                    undefined)).
+
+%% mam2g_sc_timestamp
+%%
+%% @doc
+%% <p>Wireless Network Technology: MAM2G</p>
+%% @end
+
+-define(MAM2G_SC_TIMESTAMP,
+        ?SIMPLE_TLV(mam2g_sc_timestamp,
+                    16#1403,
+                    ?MAM2G_SC_TIMESTAMP_DOMAIN,
+                    ?MAM2G_SC_TIMESTAMP_RESERVED,
+                    undefined,
+                    undefined)).
+
+%% mam2g_vs_retinfo
+%%
+%% @doc
+%% <p>Wireless Network Technology: MAM2G</p>
+%% @end
+
+-define(MAM2G_VS_RETINFO,
+        ?SIMPLE_TLV(mam2g_vs_retinfo,
+                    16#1404,
+                    ?MAM2G_VS_RETINFO_DOMAIN,
+                    ?MAM2G_VS_RETINFO_RESERVED,
+                    undefined,
+                    undefined)).
+
+%% mam2g_cs_code
+%%
+%% @doc
+%% <p>Wireless Network Technology: MAM2G</p>
+%% @end
+
+-define(MAM2G_CS_CODE,
+        ?SIMPLE_TLV(mam2g_cs_code,
+                    16#1405,
+                    ?MAM2G_CS_CODE_DOMAIN,
+                    ?MAM2G_CS_CODE_RESERVED,
+                    undefined,
+                    undefined)).
+
+-endif.  % -ifndef(smpp_param)

@@ -995,6 +995,32 @@
         ?UNION([?RANGE_INTEGER(1,  4,  15),
                 ?RANGE_INTEGER(1, 20,  31)])).
 
+%% Vodafone MAM-2G extended TLVs (software v1.3, doc. v3.0)
+
+%% Service Provider service reference date in GMT format. See 7.1.1
+-define(MAM2G_SP_DATE_DOMAIN,   ?FIXED_C_OCTET_STRING(17)).
+-define(MAM2G_SP_DATE_RESERVED, ?EMPTY).
+
+%% 0: not notify payer; 1: notify payer
+-define(MAM2G_NOTIFY_DEBIT_DOMAIN, ?BOUND_INTEGER(1, 1)).
+-define(MAM2G_NOTIFY_DEBIT_RESERVED, ?EMPTY).
+
+%% 0: not notify payer; 1: notify payer
+-define(MAM2G_NOTIFY_DOMAIN, ?BOUND_INTEGER(1, 1)).
+-define(MAM2G_NOTIFY_RESERVED, ?EMPTY).
+
+%% Service Center Timestamp in GMT format related to the MO message. See 7.1.1 (used in deliver_sm)
+-define(MAM2G_SC_TIMESTAMP_DOMAIN,   ?FIXED_C_OCTET_STRING(17)).
+-define(MAM2G_SC_TIMESTAMP_RESERVED, ?EMPTY).
+
+%% SCE interaction result description (used in deliver_sm for submit_mt and recharge_mt)
+-define(MAM2G_VS_RETINFO_DOMAIN, ?VAR_C_OCTET_STRING(31)).
+-define(MAM2G_VS_RETINFO_RESERVED, ?EMPTY).
+
+%% Commercial service code.
+-define(MAM2G_CS_CODE_DOMAIN, ?VAR_C_OCTET_STRING(17)).
+-define(MAM2G_CS_CODE_RESERVED, ?EMPTY).
+
 %%%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 %%% Standard and TLV Composite Parameters Value Definitions
 %%%
