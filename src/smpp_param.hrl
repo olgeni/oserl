@@ -174,6 +174,14 @@
                   undefined,
                   ?ESME_RINVDSTADR)).
 
+%% mam2g_payer_addr
+
+-define(MAM2G_PAYER_ADDR_21,
+        ?STANDARD(mam2g_payer_addr,
+                  ?MAM2G_PAYER_ADDR_21_DOMAIN,
+                  ?NULL_C_OCTET_STRING,
+                  undefined)).
+
 %% dest_address
 %%
 %% %@doc This field is a composite field containing a mandatory field and then
@@ -1592,6 +1600,48 @@
                     undefined)).
 
 %% Vodafone MAM-2G extended TLVs (software v1.3, doc. v3.0)
+
+-define(MAM2G_PAYER_ADDR_TON,
+        ?STANDARD(mam2g_payer_addr_ton,
+                  ?MAM2G_PAYER_ADDR_TON_DOMAIN,
+                  ?TON_UNKNOWN,
+                  ?ESME_RINVSRCTON)).
+
+-define(MAM2G_PAYER_ADDR_NPI,
+        ?STANDARD(mam2g_payer_addr_npi,
+                  ?MAM2G_PAYER_ADDR_NPI_DOMAIN,
+                  ?NPI_UNKNOWN,
+                  undefined)).
+
+-define(MAM2G_SP_CLASS,
+        ?STANDARD(mam2g_sp_class,
+                  ?MAM2G_SP_CLASS_DOMAIN,
+                  undefined,
+                  ?ESME_MAM2G_RINVSPCLASS)).
+
+-define(MAM2G_SP_SERVICE,
+        ?STANDARD(mam2g_sp_service,
+                  ?MAM2G_SP_SERVICE_DOMAIN,
+                  undefined,
+                  ?ESME_MAM2G_RINVSPSERV)).
+
+-define(MAM2G_NUMBER_OF_MESSAGES,
+        ?STANDARD(mam2g_number_of_messages,
+                  ?MAM2G_NUMBER_OF_MESSAGES_DOMAIN,
+                  undefined,
+                  undefined)).
+
+-define(MAM2G_MESSAGES,
+        ?STANDARD(mam2g_messages,
+                  ?MAM2G_MESSAGES_DOMAIN,
+                  undefined,
+                  undefined)).
+
+-define(MAM2G_TRANSACTION_ID,
+        ?STANDARD(mam2g_transaction_id,
+                  ?MAM2G_TRANSACTION_ID_DOMAIN,
+                  undefined,
+                  undefined)).
 
 %% mam2g_sp_date
 %%
