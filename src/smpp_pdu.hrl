@@ -650,4 +650,76 @@
         ?PDU([?MAM2G_TRANSACTION_ID],
              [],
              [])).
+
+-define(MAM2G_SUBMIT_CARING,
+        ?PDU([?SERVICE_TYPE,
+              ?SOURCE_ADDR_TON,
+              ?SOURCE_ADDR_NPI,
+              ?SOURCE_ADDR_21,
+              ?DEST_ADDR_TON,
+              ?DEST_ADDR_NPI,
+              ?DESTINATION_ADDR_21,
+              ?ESM_CLASS,
+              ?PROTOCOL_ID,
+              ?PRIORITY_FLAG,
+              ?SCHEDULE_DELIVERY_TIME,
+              ?VALIDITY_PERIOD,
+              ?REGISTERED_DELIVERY,
+              ?REPLACE_IF_PRESENT_FLAG,
+              ?DATA_CODING,
+              ?SM_DEFAULT_MSG_ID,
+              ?SHORT_MESSAGE],
+             [],
+             [?ALERT_ON_MESSAGE_DELIVERY, % (CDMA)
+              ?BILLING_IDENTIFICATION,
+              ?CALLBACK_NUM,
+              ?CALLBACK_NUM_ATAG,         % (TDMA)
+              ?CALLBACK_NUM_PRES_IND,     % (TDMA)
+              ?DEST_ADDR_NP_COUNTRY,      % (CDMA, TDMA)
+              ?DEST_ADDR_NP_INFORMATION,  % (CDMA, TDMA)
+              ?DEST_ADDR_NP_RESOLUTION,   % (CDMA, TDMA)
+              ?DEST_ADDR_SUBUNIT,
+              ?DEST_BEARER_TYPE,
+              ?DEST_NETWORK_ID,
+              ?DEST_NETWORK_TYPE,
+              ?DEST_NODE_ID,
+              ?DEST_SUBADDRESS,           % (CDMA, TDMA)
+              ?DEST_TELEMATICS_ID,
+              ?DEST_PORT,
+              ?DISPLAY_TIME,              % (CDMA, TDMA)
+              ?ITS_REPLY_TYPE,            % (CDMA)
+              ?ITS_SESSION_INFO,          % (CDMA)
+              ?LANGUAGE_INDICATOR,        % (CDMA, TDMA)
+              ?MESSAGE_PAYLOAD,
+              ?MORE_MESSAGES_TO_SEND,
+              ?MS_MSG_WAIT_FACILITIES,
+              ?MS_VALIDITY,               % (CDMA, TDMA)
+              ?NUMBER_OF_MESSAGES,
+              ?PAYLOAD_TYPE,
+              ?PRIVACY_INDICATOR,         % (CDMA, TDMA)
+              ?QOS_TIME_TO_LIVE,
+              ?SAR_MSG_REF_NUM,
+              ?SAR_SEGMENT_SEQNUM,
+              ?SAR_TOTAL_SEGMENTS,
+              ?SET_DPF,
+              ?SMS_SIGNAL,                % (TDMA)
+              ?SOURCE_ADDR_SUBUNIT,
+              ?SOURCE_BEARER_TYPE,
+              ?SOURCE_NETWORK_ID,
+              ?SOURCE_NETWORK_TYPE,
+              ?SOURCE_NODE_ID,
+              ?SOURCE_PORT,
+              ?SOURCE_SUBADDRESS,         % (CDMA, TDMA)
+              ?SOURCE_TELEMATICS_ID,
+              ?USER_MESSAGE_REFERENCE,
+              ?USER_RESPONSE_CODE,        % (CDMA, TDMA)
+              ?USSD_SERVICE_OP,
+              ?MAM2G_SP_DATE,             % (MAM2G)
+              ?MAM2G_CS_CODE])).          % (MAM2G)
+
+-define(MAM2G_SUBMIT_CARING_RESP,
+        ?PDU([?MAM2G_TRANSACTION_ID],
+             [],
+             [])).
+
 -endif.  % -ifndef(smpp_pdu)
