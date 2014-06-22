@@ -124,7 +124,10 @@ behaviour_info(callbacks) ->
      {handle_resp, 4},
      {handle_submit_multi, 4},
      {handle_submit_sm, 4},
-     {handle_unbind, 4}];
+     {handle_unbind, 4},
+     {handle_mam2g_submit_mt, 4},
+     {handle_mam2g_submit_caring, 4}];
+%% MAM2G not implemented here
 behaviour_info(_Other) ->
     undefined.
 
@@ -484,6 +487,10 @@ handle_operation(SrvRef, {submit_multi, Pdu}) ->
     handle_operation(SrvRef, {handle_submit_multi, Pdu});
 handle_operation(SrvRef, {submit_sm, Pdu}) ->
     handle_operation(SrvRef, {handle_submit_sm, Pdu});
+handle_operation(SrvRef, {mam2g_submit_mt, Pdu}) ->
+    handle_operation(SrvRef, {handle_mam2g_submit_mt, Pdu});
+handle_operation(SrvRef, {mam2g_submit_caring, Pdu}) ->
+    handle_operation(SrvRef, {handle_mam2g_submit_caring, Pdu});
 handle_operation(SrvRef, {HandleFun, Pdu}) ->
     gen_server:call(SrvRef, {{HandleFun, Pdu}, self()}, ?ASSERT_TIME).
 

@@ -241,7 +241,9 @@ bound_tx({CmdId, _Pdu} = R, St)
        CmdId == ?COMMAND_ID_QUERY_SM;
        CmdId == ?COMMAND_ID_QUERY_BROADCAST_SM;
        CmdId == ?COMMAND_ID_CANCEL_BROADCAST_SM;
-       CmdId == ?COMMAND_ID_CANCEL_SM ->
+       CmdId == ?COMMAND_ID_CANCEL_SM;
+       CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT;
+       CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING ->
     handle_peer_operation(R, St),
     {next_state, bound_tx, St};
 bound_tx({?COMMAND_ID_UNBIND, _Pdu} = R, St) ->
@@ -279,7 +281,9 @@ bound_trx({CmdId, _Pdu} = R, St)
        CmdId == ?COMMAND_ID_QUERY_SM;
        CmdId == ?COMMAND_ID_QUERY_BROADCAST_SM;
        CmdId == ?COMMAND_ID_CANCEL_BROADCAST_SM;
-       CmdId == ?COMMAND_ID_CANCEL_SM ->
+       CmdId == ?COMMAND_ID_CANCEL_SM;
+       CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT;
+       CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING ->
     handle_peer_operation(R, St),
     {next_state, bound_trx, St};
 bound_trx({?COMMAND_ID_UNBIND, _Pdu} = R, St) ->

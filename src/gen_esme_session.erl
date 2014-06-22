@@ -52,6 +52,8 @@
          replace_sm/2,
          submit_multi/2,
          submit_sm/2,
+         mam2g_submit_mt/2,
+         mam2g_submit_caring/2,
          unbind/1]).
 
 %%% INIT/TERMINATE EXPORTS
@@ -181,6 +183,14 @@ submit_multi(FsmRef, Params) ->
 
 submit_sm(FsmRef, Params) ->
     send_event(FsmRef, ?COMMAND_ID_SUBMIT_SM, Params).
+
+
+mam2g_submit_mt(FsmRef, Params) ->
+    send_event(FsmRef, ?COMMAND_ID_MAM2G_SUBMIT_MT, Params).
+
+
+mam2g_submit_caring(FsmRef, Params) ->
+    send_event(FsmRef, ?COMMAND_ID_MAM2G_SUBMIT_CARING, Params).
 
 
 unbind(FsmRef) ->

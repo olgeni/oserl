@@ -686,7 +686,11 @@
          (CmdId == ?COMMAND_ID_SUBMIT_MULTI_RESP) or
          (CmdId == ?COMMAND_ID_DATA_SM_RESP) or
          ((CmdId >= ?COMMAND_ID_BROADCAST_SM_RESP) and
-          (CmdId =< ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP)))).
+          (CmdId =< ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP)) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP))).
 
 % Gets the counterpart response command_id
 -define(RESPONSE(CmdId),
@@ -774,7 +778,18 @@
             CmdName == cancel_broadcast_sm ->
                 ?COMMAND_ID_CANCEL_BROADCAST_SM;
             CmdName == cancel_broadcast_sm_resp ->
-                ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP
+                ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP;
+
+            %% Vodafone MAM-2G extended commands (software v1.3, doc. v3.0)
+
+            CmdName == mam2g_submit_mt ->
+                ?COMMAND_ID_MAM2G_SUBMIT_MT;
+            CmdName == mam2g_submit_mt_resp ->
+                ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP;
+            CmdName == mam2g_submit_caring ->
+                ?COMMAND_ID_MAM2G_SUBMIT_CARING;
+            CmdName == mam2g_submit_caring_resp ->
+                ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP
         end).
 
 %% Gets the command_name for a given command_id.
@@ -845,7 +860,15 @@
             CmdId == ?COMMAND_ID_CANCEL_BROADCAST_SM ->
                 cancel_broadcast_sm;
             CmdId == ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP ->
-                cancel_broadcast_sm_resp
+                cancel_broadcast_sm_resp;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT ->
+                mam2g_submit_mt;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP ->
+                mam2g_submit_mt_resp;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING ->
+                mam2g_submit_caring;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP ->
+                mam2g_submit_caring_resp
         end).
 
 %% Null Settings
