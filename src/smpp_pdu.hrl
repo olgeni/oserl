@@ -430,7 +430,9 @@
               ?SOURCE_SUBADDRESS,         % (CDMA, TDMA)
               ?USER_MESSAGE_REFERENCE,
               ?USER_RESPONSE_CODE,        % (CDMA, TDMA)
-              ?USSD_SERVICE_OP])).
+              ?USSD_SERVICE_OP,
+              ?MAM2G_SC_TIMESTAMP,        % (MAM2G)
+              ?MAM2G_VS_RETINFO])).       % (MAM2G)
 
 -define(DELIVER_SM_RESP,
         ?PDU([?MESSAGE_ID],
@@ -570,4 +572,3 @@
              [?CONGESTION_STATE])).
 
 -endif.  % -ifndef(smpp_pdu)
-
