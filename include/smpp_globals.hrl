@@ -207,6 +207,12 @@
 -define(ESME_MAM2G_RINVSPSERV,    16#00000404). %% Invalid SP service
 -define(ESME_MAM2G_RINVRGSTDLVRD, 16#00000405). %% Invalid registered_deliverered field
 
+%% Noverca extended errors (doc. v0.0.1, 2008-12-18)
+
+-define(ESME_NOVC_INTERNAL_ERROR,           16#00000402).
+-define(ESME_NOVC_NO_BILLING_AUTHORIZATION, 16#00000404).
+-define(ESME_NOVC_UNAVAILABLE_CARRIER_SMSC, 16#00000420).
+
 % SMPP 3.4 Error Code Synonyms
 %
 % **deprecated** For backward compatibility only.
