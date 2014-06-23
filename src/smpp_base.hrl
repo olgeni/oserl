@@ -1053,6 +1053,11 @@
 -define(MAM2G_CS_CODE_DOMAIN,   ?VAR_C_OCTET_STRING(17)).
 -define(MAM2G_CS_CODE_RESERVED, ?EMPTY).
 
+%% Noverca extended TLVs (doc. v0.0.1, 2008-12-18)
+
+-define(NOVC_TARIFF_CLASS_DOMAIN,   ?VAR_OCTET_STRING(16)).
+-define(NOVC_TARIFF_CLASS_RESERVED, ?EMPTY).
+
 %%%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 %%% Standard and TLV Composite Parameters Value Definitions
 %%%

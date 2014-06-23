@@ -1727,4 +1727,18 @@
                     undefined,
                     undefined)).
 
+%% novc_tariff_class
+%%
+%% @doc
+%% <p>Wireless Network Technology: Noverca</p>
+%% @end
+
+-define(NOVC_TARIFF_CLASS,
+        ?SIMPLE_TLV(novc_tariff_class,
+                    16#1510,
+                    ?NOVC_TARIFF_CLASS_DOMAIN,
+                    ?NOVC_TARIFF_CLASS_RESERVED,
+                    undefined,
+                    undefined)).
+
 -endif.  % -ifndef(smpp_param)

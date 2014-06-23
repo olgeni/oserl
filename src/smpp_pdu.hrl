@@ -189,7 +189,8 @@
               ?SOURCE_TELEMATICS_ID,
               ?USER_MESSAGE_REFERENCE,
               ?USER_RESPONSE_CODE,        % (CDMA, TDMA)
-              ?USSD_SERVICE_OP])).
+              ?USSD_SERVICE_OP,
+              ?NOVC_TARIFF_CLASS])).      % (Noverca)
 
 -define(SUBMIT_SM_RESP,
         ?PDU([?MESSAGE_ID],
