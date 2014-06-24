@@ -376,12 +376,12 @@ handle_cast({cast, Req}, St) ->
 handle_cast({close, Pid}, St) ->
     try
         Sss = session(Pid, St#st.sessions),
-        ok = cl_consumer:pause(Sss#session.consumer),
-        ok = gen_mc_session:stop(Pid)
+        ok = cl_consumer:pause(Sss#session.consumer)
     catch
         _Class:_NotRunning ->
             ok
     end,
+    ok = gen_mc_session:stop(Pid),
     {noreply, St};
 handle_cast({{alert_notification, Params}, Pid}, St) ->
     ok = req_send(Pid, alert_notification, Params),
@@ -582,21 +582,24 @@ session(Pid, List) ->
     {value, Session} = lists:keysearch(Pid, #session.pid, List),
     Session.
 
-
 session_closed(Pid, St) ->
-    try
+    catch_all_errors(fun() ->
         Sss = session(Pid, St#st.sessions),
         erlang:demonitor(Sss#session.ref, [flush]),
-        ok = cl_consumer:stop(Sss#session.consumer),
+        ok = cl_consumer:stop(Sss#session.consumer)
+    end),
+    catch_all_errors(fun() ->
         QueueSrv = cl_queue_tab:lookup(Pid),
         ok = cl_queue_srv:stop(QueueSrv)
-    catch
-        _Class:_NotSession ->
-            ok
-    end,
+    end),
     St#st{sessions = session_delete(Pid, St#st.sessions)}.
 
-
+catch_all_errors(Fun) ->
+    try
+        Fun()
+    catch
+        _:_ -> ok
+    end.
 
 session_delete(Pid, List) ->
     lists:keydelete(Pid, #session.pid, List).
@@ -605,15 +608,20 @@ session_delete(Pid, List) ->
 session_new(Pid, Opts) ->
     Ref = erlang:monitor(process, Pid),
     unlink(Pid),
+    case proplists:get_value(rps, Opts) of
+        false -> nop;
+        _ -> start_cl_queue_srv(Pid, Opts)
+    end,
+    #session{pid = Pid, ref = Ref, rps = proplists:get_value(rps, Opts, ?RPS)}.
+
+start_cl_queue_srv(Pid, Opts) ->
     {ok, QueueSrv} = case proplists:get_value(file_queue, Opts) of
                          undefined ->
                              cl_queue_srv:start_link();
                          File ->
                              cl_queue_srv:start_link(File)
                      end,
-    true = cl_queue_tab:insert(Pid, QueueSrv),
-    #session{pid = Pid, ref = Ref, rps = proplists:get_value(rps, Opts, ?RPS)}.
-
+    true = cl_queue_tab:insert(Pid, QueueSrv).
 
 session_stop(Sss, Reason) ->
     try

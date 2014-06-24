@@ -329,7 +329,7 @@
 
 %% Unlike some simulators, like SMPPSim 1.1, which they ignore the field
 %% ``no_unsuccess`` if no destination was unsuccessful, this
-%% implementation sets to O this field if every destination was reached
+%% implementation sets to 0 this field if every destination was reached
 %% (remember that UNSUCCESS_SME was declared as a multivalue and this base type
 %% automatically encodes the number of elements at the head of the binary).
 %%
@@ -337,7 +337,7 @@
 %% from the SMS Forum:
 %%
 %% ///
-%% When all dests are sucessful, the no_unsuccess field will be set to 0.
+%% When all dests are successful, the no_unsuccess field will be set to 0.
 %% There are no unsuccessful SME fields then included.
 %%
 %% ...here are two examples of the no_unsuccess file encodings for 0 and
