@@ -92,6 +92,17 @@
 -define(COMMAND_ID_QUERY_BROADCAST_SM_RESP,  16#80000112).
 -define(COMMAND_ID_CANCEL_BROADCAST_SM_RESP, 16#80000113).
 
+%% Vodafone MAM-2G extended commands (software v1.3, doc. v3.0)
+
+-define(COMMAND_ID_MAM2G_SUBMIT_MT,          16#00010200).
+-define(COMMAND_ID_MAM2G_SUBMIT_MT_RESP,     16#80010200).
+-define(COMMAND_ID_MAM2G_RECHARGE_MT,        16#00010201).
+-define(COMMAND_ID_MAM2G_RECHARGE_MT_RESP,   16#80010201).
+-define(COMMAND_ID_MAM2G_ACCOUNT_INFO,       16#00010202).
+-define(COMMAND_ID_MAM2G_ACCOUNT_INFO_RESP,  16#80010202).
+-define(COMMAND_ID_MAM2G_SUBMIT_CARING,      16#00010203).
+-define(COMMAND_ID_MAM2G_SUBMIT_CARING_RESP, 16#80010203).
+
 % command_status Values
 %
 % %@see section 4.7.6 on [SMPP 5.0]
@@ -186,6 +197,15 @@
                                                 % is invalid
 -define(ESME_RINVBCASTCHANIND,    16#00000112). % Broadcast Channel Indicator
                                                 % is invalid
+
+%% Vodafone MAM-2G extended errors (software v1.3, doc. v3.0)
+
+-define(ESME_MAM2G_RINVPYRADR,    16#00000400). %% Invalid Payer Address
+-define(ESME_MAM2G_RINVPYRTON,    16#00000401). %% Invalid Payer TON
+-define(ESME_MAM2G_RINVPYRNPI,    16#00000402). %% Invalid Payer NPI
+-define(ESME_MAM2G_RINVSPCLASS,   16#00000403). %% Invalid SP class
+-define(ESME_MAM2G_RINVSPSERV,    16#00000404). %% Invalid SP service
+-define(ESME_MAM2G_RINVRGSTDLVRD, 16#00000405). %% Invalid registered_deliverered field
 
 % SMPP 3.4 Error Code Synonyms
 %
@@ -627,6 +647,24 @@
 -define(USSD_SERVICE_OP_USSR_CONFIRM,   18).
 -define(USSD_SERVICE_OP_USSN_CONFIRM,   19).
 
+%% Vodafone MAM-2G: vs_retinfo values in status reports for submit_mt
+
+-define(MAM2G_VS_RETINFO_BILLED,                    ["0"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_CREDIT_LOW,     ["30"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_DELETE_SIM,     ["32", "33", "34", "35"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_UNABLE_TO_BILL, ["10", "-1", "36"]).
+-define(MAM2G_VS_RETINFO_NOT_BILLED_OFF_NETWORK,    ["31"]).
+
+%% Vodafone MAM-2G: vs_retinfo values in status reports for recharge_mt
+
+-define(MAM2G_VS_RETINFO_OK,                       ["0"]).
+-define(MAM2G_VS_RETINFO_FAILED_WAIT_AND_RETRY,    ["20", "36", "-1"]).
+-define(MAM2G_VS_RETINFO_FAILED_DELETE_SIM,        ["34"]).
+-define(MAM2G_VS_RETINFO_FAILED_VERIFY_AND_RETRY,  ["40", "10", "70"]).
+-define(MAM2G_VS_RETINFO_FAILED_TIMEOUT,           ["50"]).
+-define(MAM2G_VS_RETINFO_FAILED_ALREADY_RECHARGED, ["60"]).
+-define(MAM2G_VS_RETINFO_FAILED_OFF_NETWORK,       ["31"]).
+
 %%% USEFUL MACROS
 %% Work with command ids and names
 %%
@@ -648,7 +686,11 @@
          (CmdId == ?COMMAND_ID_SUBMIT_MULTI_RESP) or
          (CmdId == ?COMMAND_ID_DATA_SM_RESP) or
          ((CmdId >= ?COMMAND_ID_BROADCAST_SM_RESP) and
-          (CmdId =< ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP)))).
+          (CmdId =< ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP)) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING) and
+         (CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP))).
 
 % Gets the counterpart response command_id
 -define(RESPONSE(CmdId),
@@ -736,7 +778,18 @@
             CmdName == cancel_broadcast_sm ->
                 ?COMMAND_ID_CANCEL_BROADCAST_SM;
             CmdName == cancel_broadcast_sm_resp ->
-                ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP
+                ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP;
+
+            %% Vodafone MAM-2G extended commands (software v1.3, doc. v3.0)
+
+            CmdName == mam2g_submit_mt ->
+                ?COMMAND_ID_MAM2G_SUBMIT_MT;
+            CmdName == mam2g_submit_mt_resp ->
+                ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP;
+            CmdName == mam2g_submit_caring ->
+                ?COMMAND_ID_MAM2G_SUBMIT_CARING;
+            CmdName == mam2g_submit_caring_resp ->
+                ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP
         end).
 
 %% Gets the command_name for a given command_id.
@@ -807,7 +860,15 @@
             CmdId == ?COMMAND_ID_CANCEL_BROADCAST_SM ->
                 cancel_broadcast_sm;
             CmdId == ?COMMAND_ID_CANCEL_BROADCAST_SM_RESP ->
-                cancel_broadcast_sm_resp
+                cancel_broadcast_sm_resp;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT ->
+                mam2g_submit_mt;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP ->
+                mam2g_submit_mt_resp;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING ->
+                mam2g_submit_caring;
+            CmdId == ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP ->
+                mam2g_submit_caring_resp
         end).
 
 %% Null Settings

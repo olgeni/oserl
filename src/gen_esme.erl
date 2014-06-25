@@ -67,7 +67,11 @@
          submit_multi/4,
          submit_sm/3,
          submit_sm/4,
-         unbind/2]).
+         unbind/2,
+         mam2g_submit_mt/3,
+         mam2g_submit_mt/4,
+         mam2g_submit_caring/3,
+         mam2g_submit_caring/4]).
 
 %%% QUEUE EXPORTS
 -export([queue_broadcast_sm/3,
@@ -92,7 +96,11 @@
          queue_submit_multi/3,
          queue_submit_multi/4,
          queue_submit_sm/3,
-         queue_submit_sm/4]).
+         queue_submit_sm/4,
+         queue_mam2g_submit_mt/3,
+         queue_mam2g_submit_mt/4,
+         queue_mam2g_submit_caring/3,
+         queue_mam2g_submit_caring/4]).
 
 %%% LOG EXPORTS
 -export([add_log_handler/3, delete_log_handler/3, swap_log_handler/3]).
@@ -298,6 +306,20 @@ submit_sm(SrvRef, Params, Args, Timeout) ->
 unbind(SrvRef, Args) ->
     gen_server:cast(SrvRef, {{unbind, []}, Args}).
 
+
+mam2g_submit_mt(SrvRef, Params, Args) ->
+    mam2g_submit_mt(SrvRef, Params, Args, ?ASSERT_TIME).
+
+mam2g_submit_mt(SrvRef, Params, Args, Timeout) ->
+    gen_server:call(SrvRef, {{mam2g_submit_mt, Params}, Args}, Timeout).
+
+
+mam2g_submit_caring(SrvRef, Params, Args) ->
+    mam2g_submit_caring(SrvRef, Params, Args, ?ASSERT_TIME).
+
+mam2g_submit_caring(SrvRef, Params, Args, Timeout) ->
+    gen_server:call(SrvRef, {{mam2g_submit_caring, Params}, Args}, Timeout).
+
 %%%-----------------------------------------------------------------------------
 %%% QUEUE EXPORTS
 %%%-----------------------------------------------------------------------------
@@ -383,6 +405,20 @@ queue_submit_sm(SrvRef, Params, Args) ->
 
 queue_submit_sm(SrvRef, Params, Args, Priority) ->
     queue(SrvRef, {submit_sm, Params}, Args, Priority).
+
+
+queue_mam2g_submit_mt(SrvRef, Params, Args) ->
+    queue_mam2g_submit_mt(SrvRef, Params, Args, ?PRIORITY).
+
+queue_mam2g_submit_mt(SrvRef, Params, Args, Priority) ->
+    queue(SrvRef, {mam2g_submit_mt, Params}, Args, Priority).
+
+
+queue_mam2g_submit_caring(SrvRef, Params, Args) ->
+    queue_mam2g_submit_caring(SrvRef, Params, Args, ?PRIORITY).
+
+queue_mam2g_submit_caring(SrvRef, Params, Args, Priority) ->
+    queue(SrvRef, {mam2g_submit_caring, Params}, Args, Priority).
 
 %%%-----------------------------------------------------------------------------
 %%% LOG EXPORTS
@@ -669,7 +705,11 @@ req_send(Pid, CmdName, Params) ->
             CmdName == submit_sm ->
                 gen_esme_session:submit_sm(Pid, Params);
             CmdName == unbind ->
-                gen_esme_session:unbind(Pid)
+                gen_esme_session:unbind(Pid);
+            CmdName == mam2g_submit_mt ->
+                gen_esme_session:mam2g_submit_mt(Pid, Params);
+            CmdName == mam2g_submit_caring ->
+                gen_esme_session:mam2g_submit_caring(Pid, Params)
         end
     catch
         _Any:{Reason, _Stack} -> % Session not alive or request malformed

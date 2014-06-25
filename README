@@ -2,14 +2,18 @@ OSERL 3.2.4 needs common_lib 3.3.0 or higher.
 
 Documentation available in man format:
 
-To start with:
-
    erl -man doc/man/oserl.1
-
-Then probably:
-
-     erl -man doc/man/gen_esme.3
+   erl -man doc/man/gen_esme.3
 
 Or any other module.
 
 There are also two examples under doc/examples.
+
+This version of oserl contains some extensions for the MAM2G interface used
+by Vodafone (Quinary):
+
+   - SUBMIT_MT
+   - SUBMIT_CARING
+
+RECHARGE_MT and ACCOUNT_INFO are not currently implemented, but if you grep
+for MAM2G in the source it should give you a start.

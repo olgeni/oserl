@@ -99,6 +99,10 @@ request_failure_code(?COMMAND_ID_QUERY_SM) ->
     ?ESME_RQUERYFAIL;
 request_failure_code(?COMMAND_ID_REPLACE_SM) ->
     ?ESME_RREPLACEFAIL;
+request_failure_code(?COMMAND_ID_MAM2G_SUBMIT_MT) ->
+    ?ESME_RSUBMITFAIL;
+request_failure_code(?COMMAND_ID_MAM2G_SUBMIT_CARING) ->
+    ?ESME_RSUBMITFAIL;
 request_failure_code(_CmdId) ->
     ?ESME_RUNKNOWNERR.
 
@@ -179,6 +183,14 @@ pack(Pdu) ->
             smpp_pdu_syntax:pack(Pdu, ?BIND_TRANSMITTER);
         ?COMMAND_ID_BIND_TRANSMITTER_RESP ->
             smpp_pdu_syntax:pack(Pdu, ?BIND_TRANSMITTER_RESP);
+        ?COMMAND_ID_MAM2G_SUBMIT_MT ->
+            smpp_pdu_syntax:pack(Pdu, ?MAM2G_SUBMIT_MT);
+        ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP ->
+            smpp_pdu_syntax:pack(Pdu, ?MAM2G_SUBMIT_MT_RESP);
+        ?COMMAND_ID_MAM2G_SUBMIT_CARING ->
+            smpp_pdu_syntax:pack(Pdu, ?MAM2G_SUBMIT_CARING);
+        ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP ->
+            smpp_pdu_syntax:pack(Pdu, ?MAM2G_SUBMIT_CARING_RESP);
         Other ->
             SeqNum = smpp_pdu_syntax:sequence_number(Pdu),
             {error, Other, ?ESME_RINVCMDID, SeqNum}
@@ -253,6 +265,14 @@ unpack(BinPdu) ->
             smpp_pdu_syntax:unpack(BinPdu, ?BIND_TRANSMITTER);
         ?COMMAND_ID_BIND_TRANSMITTER_RESP ->
             smpp_pdu_syntax:unpack(BinPdu, ?BIND_TRANSMITTER_RESP);
+        ?COMMAND_ID_MAM2G_SUBMIT_MT ->
+            smpp_pdu_syntax:unpack(BinPdu, ?MAM2G_SUBMIT_MT);
+        ?COMMAND_ID_MAM2G_SUBMIT_MT_RESP ->
+            smpp_pdu_syntax:unpack(BinPdu, ?MAM2G_SUBMIT_MT_RESP);
+        ?COMMAND_ID_MAM2G_SUBMIT_CARING ->
+            smpp_pdu_syntax:unpack(BinPdu, ?MAM2G_SUBMIT_CARING);
+        ?COMMAND_ID_MAM2G_SUBMIT_CARING_RESP ->
+            smpp_pdu_syntax:unpack(BinPdu, ?MAM2G_SUBMIT_CARING_RESP);
         Other ->
             SeqNum = smpp_pdu_syntax:sequence_number(BinPdu),
             {error, Other, ?ESME_RINVCMDID, SeqNum}
