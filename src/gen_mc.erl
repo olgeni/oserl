@@ -578,6 +578,8 @@ split_options([{port, _} = H | T], Mc, Srv) ->
     split_options(T, [H | Mc], Srv);
 split_options([{timers, _} = H | T], Mc, Srv) ->
     split_options(T, [H | Mc], Srv);
+split_options([{lsock, _} = H | T], Mc, Srv) ->
+    split_options(T, [H | Mc], Srv);
 split_options([H | T], Mc, Srv) ->
     split_options(T, Mc, [H | Srv]).
 
