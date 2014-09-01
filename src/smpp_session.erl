@@ -102,13 +102,7 @@ listen(Opts) ->
             Port = proplists:get_value(port, Opts, ?DEFAULT_SMPP_PORT),
             gen_tcp:listen(Port, ?LISTEN_OPTS(Addr));
         LSock ->
-            Addr = proplists:get_value(addr, Opts, default_addr()),
-            case inet:setopts(LSock, ?LISTEN_OPTS(Addr)) of
-                ok ->
-                    {ok, LSock};
-                Error ->
-                    Error
-            end
+            {ok, LSock}
     end.
 
 
